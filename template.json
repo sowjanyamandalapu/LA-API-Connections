@@ -176,10 +176,10 @@
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
       "name": "[parameters('sql_Connection_Name')]",
-      "location": "[parameters('logicAppLocation')]",
+      "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'sql')]"
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'sql')]"
         },
         "displayName": "[parameters('sql_Connection_DisplayName')]",
         "parameterValues": {
@@ -195,10 +195,10 @@
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
       "name": "[parameters('azureblob_Connection_Name')]",
-      "location": "[parameters('logicAppLocation')]",
+      "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'azureblob')]"
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'azureblob')]"
         },
         "displayName": "[parameters('azureblob_Connection_DisplayName')]",
         "parameterValues": {
@@ -212,10 +212,10 @@
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
       "name": "[parameters('salesforce_Connection_Name')]",
-      "location": "[parameters('logicAppLocation')]",
+      "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'salesforce')]"
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'salesforce')]"
         },
         "displayName": "[parameters('salesforce_Connection_DisplayName')]",
         "nonSecretParameterValues": {
@@ -228,10 +228,10 @@
       "type": "MICROSOFT.WEB/CONNECTIONS",
       "apiVersion": "2018-07-01-preview",
       "name": "[parameters('salesforce_1_Connection_Name')]",
-      "location": "[parameters('logicAppLocation')]",
+      "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'salesforce')]"
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'salesforce')]"
         },
         "displayName": "[parameters('salesforce_1_Connection_DisplayName')]",
         "nonSecretParameterValues": {
@@ -245,10 +245,10 @@
       "type": "MICROSOFT.WEB/CONNECTIONS",
       "apiVersion": "2018-07-01-preview",
       "name": "[parameters('office365_1_Connection_Name')]",
-      "location": "[parameters('logicAppLocation')]",
+      "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'office365')]"
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'office365')]"
         },
         "displayName": "[parameters('office365_1_Connection_DisplayName')]"
       }
