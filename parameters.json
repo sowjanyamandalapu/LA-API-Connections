@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apiConnectionLocation": {
+      "value": "[resourceGroup().location]"
+    },
+    "sql_Connection_Name": {
+      "value": "sql"
+    },
+    "sql_Connection_DisplayName": {
+      "value": "sql"
+    },
+    "sql_server": {
+      "value": null
+    },
+    "sql_database": {
+      "value": null
+    },
+    "sql_username": {
+      "value": null
+    },
+    "sql_password": {
+      "value": null
+    },
+    "sql_authType": {
+      "value": null
+    },
+    "azureblob_Connection_Name": {
+      "value": "azureblob"
+    },
+    "azureblob_Connection_DisplayName": {
+      "value": "sql"
+    },
+    "azureblob_accountName": {
+      "value": null
+    },
+    "azureblob_accessKey": {
+      "value": null
+    },
+    "azureblob_authType": {
+      "value": null
+    },
+    "salesforce_Connection_Name": {
+      "value": "salesforce"
+    },
+    "salesforce_Connection_DisplayName": {
+      "value": "salesforce"
+    },
+    "salesforce_token:LoginUri": {
+      "value": "https://login.salesforce.com"
+    },
+    "salesforce_salesforceApiVersion": {
+      "value": "v41"
+    }
+  }
+}
