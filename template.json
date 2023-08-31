@@ -55,69 +55,27 @@
         "description": "Location of the Logic App."
       }
     },
-    "sql_Connection_Name": {
-      "type": "string",
-      "defaultValue": "sql"
-    },
-    "sql_Connection_DisplayName": {
-      "type": "string",
-      "defaultValue": "sql"
-    },
-    "sql_server": {
-      "type": "string",
-      "metadata": {
-        "description": "SQL server name"
-      }
-    },
-    "sql_database": {
-      "type": "string",
-      "metadata": {
-        "description": "SQL database name"
-      }
-    },
-    "sql_username": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Username credential"
-      }
-    },
-    "sql_password": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Password credential"
-      }
-    },
-    "sql_authType": {
-      "type": "string",
-      "metadata": {
-        "description": "Authentication type to connect to your database"
-      },
-      "allowedValues": [
-        "basic",
-        "anonymous"
-      ]
-    },
-    "azureblob_Connection_Name": {
+    "azureblob_1_Connection_Name": {
       "type": "string",
       "defaultValue": "azureblob"
     },
-    "azureblob_Connection_DisplayName": {
+    "azureblob_1_Connection_DisplayName": {
       "type": "string",
-      "defaultValue": "sql"
+      "defaultValue": "AzureBlob"
     },
-    "azureblob_accountName": {
+    "azureblob_1_accountName": {
       "type": "string",
       "metadata": {
         "description": "Name or blob endpoint of the Azure Storage account the connector should use."
       }
     },
-    "azureblob_accessKey": {
+    "azureblob_1_accessKey": {
       "type": "securestring",
       "metadata": {
         "description": "Specify a valid primary/secondary Azure Storage account access key."
       }
     },
-    "azureblob_authType": {
+    "azureblob_1_authType": {
       "type": "string",
       "metadata": {
         "description": "Authentication type to connect to your database"
@@ -127,27 +85,89 @@
         "anonymous"
       ]
     },
-    "salesforce_Connection_Name": {
+    "sql_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "sql"
+    },
+    "sql_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "sql"
+    },
+    "sql_1_server": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL server name"
+      }
+    },
+    "sql_1_database": {
+      "type": "string",
+      "metadata": {
+        "description": "SQL database name"
+      }
+    },
+    "sql_1_username": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Username credential"
+      }
+    },
+    "sql_1_password": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Password credential"
+      }
+    },
+    "sql_1_authType": {
+      "type": "string",
+      "metadata": {
+        "description": "Authentication type to connect to your database"
+      },
+      "allowedValues": [
+        "basic",
+        "anonymous"
+      ]
+    },
+    "salesforce_1_Connection_Name": {
       "type": "string",
       "defaultValue": "salesforce"
     },
-    "salesforce_Connection_DisplayName": {
+    "salesforce_1_Connection_DisplayName": {
       "type": "string",
       "defaultValue": "salesforce"
     },
-    "salesforce_token:LoginUri": {
+    "salesforce_1_token:LoginUri": {
       "type": "string",
       "metadata": {
         "description": "The Salesforce Login URI. For Production, leave blank or use https://login.salesforce.com"
       },
       "defaultValue": "https://login.salesforce.com"
     },
-    "salesforce_salesforceApiVersion": {
+    "salesforce_1_salesforceApiVersion": {
       "type": "string",
       "metadata": {
         "description": "The Salesforce API Version. For default, leave blank or use v41.0"
       },
       "defaultValue": "v41"
+    },
+    "salesforce_1_privacySetting": {
+      "type": "string",
+      "metadata": {
+        "description": "Privacy Setting"
+      },
+      "allowedValues": [
+        "None",
+        "Private",
+        "Organizational",
+        "Public"
+      ]
+    },
+    "office365_1_Connection_Name": {
+      "type": "string",
+      "defaultValue": "office365"
+    },
+    "office365_1_Connection_DisplayName": {
+      "type": "string",
+      "defaultValue": "office365"
     }
   },
   "variables": {},
@@ -202,6 +222,35 @@
           "token:LoginUri": "[parameters('salesforce_token:LoginUri')]",
           "salesforceApiVersion": "[parameters('salesforce_salesforceApiVersion')]"
         }
+      }
+    },
+ {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2018-07-01-preview",
+      "name": "[parameters('salesforce_1_Connection_Name')]",
+      "location": "[parameters('logicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'salesforce')]"
+        },
+        "displayName": "[parameters('salesforce_1_Connection_DisplayName')]",
+        "nonSecretParameterValues": {
+          "token:LoginUri": "[parameters('salesforce_1_token:LoginUri')]",
+          "salesforceApiVersion": "[parameters('salesforce_1_salesforceApiVersion')]",
+          "privacySetting": "[parameters('salesforce_1_privacySetting')]"
+        }
+      }
+    },
+    {
+      "type": "MICROSOFT.WEB/CONNECTIONS",
+      "apiVersion": "2018-07-01-preview",
+      "name": "[parameters('office365_1_Connection_Name')]",
+      "location": "[parameters('logicAppLocation')]",
+      "properties": {
+        "api": {
+          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('logicAppLocation'), '/managedApis/', 'office365')]"
+        },
+        "displayName": "[parameters('office365_1_Connection_DisplayName')]"
       }
     }
   ],
