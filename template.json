@@ -175,52 +175,36 @@
     {
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
-      "name": "[parameters('sql_Connection_Name')]",
+      "name": "[parameters('sql_1_Connection_Name')]",
       "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
           "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'sql')]"
         },
-        "displayName": "[parameters('sql_Connection_DisplayName')]",
+        "displayName": "[parameters('sql_1_Connection_DisplayName')]",
         "parameterValues": {
-          "server": "[parameters('sql_server')]",
-          "database": "[parameters('sql_database')]",
-          "username": "[parameters('sql_username')]",
-          "password": "[parameters('sql_password')]",
-          "authType": "[parameters('sql_authType')]"
+          "server": "[parameters('sql_1_server')]",
+          "database": "[parameters('sql_1_database')]",
+          "username": "[parameters('sql_1_username')]",
+          "password": "[parameters('sql_1_password')]",
+          "authType": "[parameters('sql_1_authType')]"
         }
       }
     },
     {
       "type": "Microsoft.Web/connections",
       "apiVersion": "2016-06-01",
-      "name": "[parameters('azureblob_Connection_Name')]",
+      "name": "[parameters('azureblob_1_Connection_Name')]",
       "location": "[parameters('apiConnectionLocation')]",
       "properties": {
         "api": {
           "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'azureblob')]"
         },
-        "displayName": "[parameters('azureblob_Connection_DisplayName')]",
+        "displayName": "[parameters('azureblob_1_Connection_DisplayName')]",
         "parameterValues": {
-          "accountName": "[parameters('azureblob_accountName')]",
-          "accessKey": "[parameters('azureblob_accessKey')]",
-          "authType": "[parameters('azureblob_authType')]"
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Web/connections",
-      "apiVersion": "2016-06-01",
-      "name": "[parameters('salesforce_Connection_Name')]",
-      "location": "[parameters('apiConnectionLocation')]",
-      "properties": {
-        "api": {
-          "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', parameters('apiConnectionLocation'), '/managedApis/', 'salesforce')]"
-        },
-        "displayName": "[parameters('salesforce_Connection_DisplayName')]",
-        "nonSecretParameterValues": {
-          "token:LoginUri": "[parameters('salesforce_token:LoginUri')]",
-          "salesforceApiVersion": "[parameters('salesforce_salesforceApiVersion')]"
+          "accountName": "[parameters('azureblob_1_accountName')]",
+          "accessKey": "[parameters('azureblob_1_accessKey')]",
+          "authType": "[parameters('azureblob_1_authType')]"
         }
       }
     },
