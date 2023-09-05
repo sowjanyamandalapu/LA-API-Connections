@@ -1,18 +1,34 @@
-﻿
 
 Param(
     [string] $ResourceGroupName = 'DefaultResourceGroup-null',
     [string] $ResourceLocation = 'Canada East',
-    [string] $api = 'salesforce',
-    [string] $ConnectionName = 'salesforce',
+    [string] $api = 'Office365',
+    [string] $ConnectionName = 'office365',
     [string] $subscriptionId = 'a84bfa33-426b-40a9-aea7-d427040be66c',
-    [bool] $createConnection =  $false
+    [bool] $createConnection =  $false #set to false if the connection was already deployed
 )
  #region mini window, made by Scripting Guy Blog
+    Function Show-OAuthWindow {
+    Add-Type -AssemblyName System.Windows.Forms
+ 
+    $form = New-Object -TypeName System.Windows.Forms.Form -Property @{Width=600;Height=800}
+    $web  = New-Object -TypeName System.Windows.Forms.WebBrowser -Property @{Width=580;Height=780;Url=($url -f ($Scope -join "%20")) }
+    $DocComp  = {
+            $Global:uri = $web.Url.AbsoluteUri
+            if ($Global:Uri -match "error=[^&]*|code=[^&]*") {$form.Close() }
+    }
+    $web.ScriptErrorsSuppressed = $true
+    $web.Add_DocumentCompleted($DocComp)
+    $form.Controls.Add($web)
+    $form.Add_Shown({$form.Activate()})
+    $form.ShowDialog() | Out-Null
+    }
+    #endregion
 
 #login to get an access code 
 
-Login-AzureRmAccount 
+#Login-AzureRmAccount 
+Import-AzureRmContext -path "C:\Users\smandalapu\OneDrive - Pival International Inc\Desktop\Sowjanya\AzureLogicApp\AzureProfile.json"
 
 #select the subscription
 
@@ -40,4 +56,23 @@ $parameters = @{
 $consentResponse = Invoke-AzureRmResourceAction -Action "listConsentLinks" -ResourceId $connection.ResourceId -Parameters $parameters -Force
 
 $url = $consentResponse.Value.Link 
-Write-Host $url
+
+#prompt user to login and grab the code after auth
+Show-OAuthWindow -URL $url
+
+$regex = '(code=)(.*)$'
+    $code  = ($uri | Select-string -pattern $regex).Matches[0].Groups[2].Value
+    Write-output "Received an accessCode: $code"
+
+if (-Not [string]::IsNullOrEmpty($code)) {
+	$parameters = @{ }
+	$parameters.Add("code", $code)
+	# NOTE: errors ignored as this appears to error due to a null response
+
+    #confirm the consent code
+	Invoke-AzureRmResourceAction -Action "confirmConsentCode" -ResourceId $connection.ResourceId -Parameters $parameters -Force -ErrorAction Ignore
+}
+
+#retrieve the connection
+$connection = Get-AzureRmResource -ResourceType "Microsoft.Web/connections" -ResourceGroupName $ResourceGroupName -ResourceName $ConnectionName
+Write-Host "connection status now: " $connection.Properties.Statuses[0]
